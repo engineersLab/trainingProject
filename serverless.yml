@@ -31,35 +31,35 @@ functions:
     handler: src/apis/user.getUser
     events:
       - http:
-          path: get-user/{ID}
+          path: user/{ID}
           method: GET
           cors: true
   getAllUsers:
     handler: src/apis/user.getAllUsers
     events:
       - http:
-          path: get-all-users/
+          path: all-users/
           method: GET
           cors: true
   createUser:
     handler: src/apis/user.createUser
     events:
       - http:
-          path: create-user/
+          path: user/
           method: POST
           cors: true
   editUser:
     handler: src/apis/user.editUser
     events:
       - http:
-          path: edit-user/
+          path: user/
           method: PUT
           cors: true
   deleteUser:
     handler: src/apis/user.deleteUser
     events:
       - http:
-          path: delete-user/{ID}
+          path: user/{ID}
           method: DELETE
           cors: true
         

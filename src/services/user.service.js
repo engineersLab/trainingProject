@@ -1,48 +1,74 @@
 const {getUserDao, getAllUsersDao, createUserDao, editUserDao, deleteUserDao} = require('../dao/user.dao')
+const {BusinessException} = require('../exceptions/business.exception')
+const { messageFormat, messages} = require('../utils/message.util')
+const {ErrorConstants} = require('../constants/error.constants')
 
-module.exports.getUserService = async (ID) =>{
-    let userId = ID
-    const user = await getUserDao(userId).catch(err =>{
-        throw Error("Error in getUserService",err)
-    })
 
-    return user
+module.exports.getUserService = async (getUserEvent) =>{
+    try{
+        if(!getUserEvent.pathParameters || !getUserEvent.pathParameters.ID){
+            return Responses._400({message: ErrorConstants.ID_MISSING})
+        }
+        let userId = getUserEvent.pathParameters.ID
+        const user = await getUserDao(userId)
+
+        return user
+    }catch (err){
+        console.log(new BusinessException(messageFormat(messages['WC5005E'],err)))
+    }
 }
 
 module.exports.getAllUsersService = async () =>{
-    const user = await getAllUsersDao().catch(err =>{
-        throw Error("Error in getAllUsersService",err)
-    })
+    try{
+        const user = await getAllUsersDao()
 
-    return user
+        return user
+    }catch (err){
+        console.log(new BusinessException(messageFormat(messages['WC5006E'],err)))
+    }
 }
 
-module.exports.createUserService = async (data) =>{
-    
-    let userData = data
-    const newUser = await createUserDao(userData).catch(err =>{
-        throw Error("Error in createUserService",err)
-    })
+module.exports.createUserService = async (createUserEvent) =>{
+    try{
+        if(!createUserEvent.body){
+            return Responses._400({message: 'No body'})
+        }
+        const userData = JSON.parse(createUserEvent.body)
+        const newUser = await createUserDao(userData)
 
-    return newUser
+        return newUser
+    }catch (err){
+        console.log(new BusinessException(messageFormat(messages['WC5007E'],err)))
+    }
 }
 
-module.exports.editUserService = async (data) =>{
+module.exports.editUserService = async (editUserEvent) =>{
+    try{
+        if(!editUserEvent.body){
+            return Responses._400({message: 'No body'})
+        }
 
-    let userData = data
-    const user = await editUserDao(userData).catch(err =>{
-        throw Error("Error in editUserService",err)
-    })
+        const userData = JSON.parse(editUserEvent.body)
 
-    return user
+        const user = await editUserDao(userData)
+
+        return user
+    }catch (err){
+        console.log(new BusinessException(messageFormat(messages['WC5008E'],err)))
+    }
 }
 
-module.exports.deleteUserService = async (ID) =>{
+module.exports.deleteUserService = async (deleteUserEvent) =>{
+    try{
+        if(!deleteUserEvent.pathParameters || !deleteUserEvent.pathParameters.ID){
+            return Responses._400({message: ErrorConstants.ID_MISSING})
+        }
 
-    let userID = ID
-    const user  = await deleteUserDao(userID).catch(err =>{
-        throw Error("Error in deleteUserService",err)
-    })
+        let userId  = deleteUserEvent.pathParameters.ID
+        const user  = await deleteUserDao(userId)
 
-    return user
+        return user
+    }catch (err){
+        console.log(new BusinessException(messageFormat(messages['WC5009E'],err)))
+    }
 }

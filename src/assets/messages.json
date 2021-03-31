@@ -1,0 +1,12 @@
+{
+    "WC5000E": "WC5000E: Exception while reading from DB: {0}",
+    "WC5001E": "WC5001E: Exception while creating user in DB: {0}",
+    "WC5002E": "WC5002E: Exception while updating user in DB: {0}",
+    "WC5003E": "WC5002E: Exception while deleting user in DB: {0}",
+    "WC5004E": "WC5004E: Exception while deleting user from DB: {0}",
+    "WC5005E": "WC5005E: Exception while getting user - service: {0)",
+    "WC5006E": "WC5006E: Exception while getting all users - service: {0)",
+    "WC5007E": "WC5007E: Exception while creating user - service: {0)",
+    "WC5008E": "WC5008E: Exception while updating user - service: {0)",
+    "WC5009E": "WC5009E: Exception while deleting user - service: {0)"
+}
